@@ -34,6 +34,8 @@ Todo.
 
 ./gradlew clean assembleDebug publish
 
+- 推送补丁 
+
 1、从电脑将补丁push到移动端(mac命令push到模拟器)
 
 adb push app/build/outputs/remote-bundles-debug/libcom_whh_remotebundle.so /storage/sdcard/Android/data/com.whh.atlastest/cache
