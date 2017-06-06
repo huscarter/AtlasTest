@@ -1,0 +1,4 @@
+include ':app', ':personmanager', ':remotebundle'
+include ':middlewarelibrary'
+include ':activitygroupcompat'
+include ':firstbundle'
