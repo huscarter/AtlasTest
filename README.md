@@ -1,4 +1,4 @@
-## 步骤
+## 测试步骤
 
 ### 打包
 
@@ -18,7 +18,7 @@ adb install app/build/outputs/apk/app-debug.apk
 
 - 推送补丁 
 
-1、从电脑将补丁push到移动端(mac命令)
+1、从电脑将补丁push到移动端(mac命令push到模拟器)
 
 adb push app/build/outputs/tpatch-debug/update.json /storage/sdcard/Android/data/com.whh.atlastest/cache/update.json
 
@@ -34,7 +34,7 @@ Todo.
 
 ./gradlew clean assembleDebug publish
 
-1、从电脑将补丁push到移动端(mac命令)
+1、从电脑将补丁push到移动端(mac命令push到模拟器)
 
 adb push app/build/outputs/remote-bundles-debug/libcom_whh_remotebundle.so /storage/sdcard/Android/data/com.whh.atlastest/cache
 
