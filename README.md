@@ -12,13 +12,16 @@ adb install app/build/outputs/apk/app-debug.apk
 
 - 打补丁
 
-./gradlew clean assembleDebug -DapVersion=1.0.0 -DversionName=1.0.1
+1、修改app/build.gradle中version = getEnvValue("versionName", "1.0.1")
+
+2、执行./gradlew clean assembleDebug -DapVersion=1.0.0 -DversionName=1.0.1
 
 - 推送补丁 
 
 1、从电脑将补丁push到移动端(mac命令)
 
 adb push app/build/outputs/tpatch-debug/update.json /storage/sdcard/Android/data/com.whh.atlastest/cache/update.json
+
 adb push app/build/outputs/tpatch-debug/patch-1.0.1\@1.0.0.tpatch /storage/sdcard/Android/data/com.whh.atlastest/cache
 
 2、服务器推送补丁到移动端安装也行
