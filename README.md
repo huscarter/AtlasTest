@@ -14,17 +14,17 @@ adb install app/build/outputs/apk/app-debug.apk
 
 1、修改app/build.gradle中version = getEnvValue("versionName", "1.0.1")
 
-2、执行./gradlew clean assembleDebug -DapVersion=1.0.0 -DversionName=1.0.1
+2、执行 ./gradlew clean assembleDebug -DapVersion=1.0.0 -DversionName=1.0.1
 
 - 推送补丁 
 
 1、从电脑将补丁push到移动端(mac命令push到模拟器)
 
-adb push app/build/outputs/tpatch-debug/update.json /storage/sdcard/Android/data/com.whh.atlastest/cache/update.json
+adb push app/build/outputs/tpatch-debug/update-1.0.0.json /storage/sdcard/Android/data/com.whh.atlastest/cache/update.json
 
 adb push app/build/outputs/tpatch-debug/patch-1.0.1\@1.0.0.tpatch /storage/sdcard/Android/data/com.whh.atlastest/cache
 
-2、服务器推送补丁到移动端安装也行
+2、服务器推送补丁到移动端安装
 
 Todo.
 
@@ -34,15 +34,24 @@ Todo.
 
 ./gradlew clean assembleDebug publish
 
+- 推送补丁 
+
 1、从电脑将补丁push到移动端(mac命令push到模拟器)
 
 adb push app/build/outputs/remote-bundles-debug/libcom_whh_remotebundle.so /storage/sdcard/Android/data/com.whh.atlastest/cache
 
-2、服务器推送补丁到移动端安装也行
+2、服务器推送补丁到移动端安装
 
 Todo.
 
 
-### 官方文档地址
+## 官方文档
+
 https://github.com/alibaba/atlas/tree/master/atlas-demo
+
+http://atlas.taobao.org/docs/guide-for-use/guide_for_build.html
+
+
+
+
 

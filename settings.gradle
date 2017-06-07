@@ -1,4 +1,6 @@
-include ':app', ':personmanager', ':remotebundle'
+include ':app'
+include ':personmanager'
+include ':remotebundle'
 include ':middlewarelibrary'
 include ':activitygroupcompat'
 include ':firstbundle'
