@@ -1,6 +1,6 @@
 // version define
 group = "com.whh"
-version = getEnvValue("versionName", "1.0.1")
+version = getEnvValue("versionName", "1.0.0")
 def apVersion = getEnvValue("apVersion", "");
 
 // plugin define

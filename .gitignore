@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+gradle/wrapper/gradle-wrapper.properties
+
+app/build/
+activitygroupcompat/build/
+firstbundle/build/
+middlewarelibrary/build/
+personmanager/build/
