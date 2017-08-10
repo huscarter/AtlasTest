@@ -1,4 +1,4 @@
-package com.taobao.android;
+package com.whh.atlastest;
 
 import android.app.Activity;
 import android.app.Application;
@@ -205,7 +205,7 @@ public class ActivityGroupDelegate {
                     performLaunchChildActivity(container,key,intent);
                 }
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                Log.e("ActivityGroupDelegate","",e);
             }
         }
 

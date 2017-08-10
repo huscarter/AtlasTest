@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.taobao.android;
+package com.whh.atlastest;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

@@ -4,22 +4,28 @@ buildscript {
     repositories {
         jcenter()
         mavenLocal()
+//        maven {
+//            url "http://maven.aliyun.com/nexus/content/groups/public"
+//        }
     }
+
+    configurations.all {
+        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+
     dependencies {
-        // do not need(use atlas plugin)
-//        classpath 'com.android.tools.build:gradle:2.3.1'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-
-        classpath "com.taobao.android:atlasplugin:2.3.1.rc+"
+        classpath "com.taobao.android:atlasplugin:2.3.3.rc1"
     }
+
 }
 
 allprojects {
     repositories {
         jcenter()
-        mavenLocal()
+//        maven {
+//            url "http://maven.aliyun.com/nexus/content/groups/public"
+//        }
     }
 }
 
