@@ -47,9 +47,9 @@ Todo.
 
 ## 官方文档
 
-https://github.com/alibaba/atlas/tree/master/atlas-demo
+官方demo https://github.com/alibaba/atlas/tree/master/atlas-demo
 
-https://alibaba.github.io/atlas/
+相关原理 https://alibaba.github.io/atlas/
 
 
 
