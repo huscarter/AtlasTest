@@ -49,7 +49,7 @@ Todo.
 
 https://github.com/alibaba/atlas/tree/master/atlas-demo
 
-http://atlas.taobao.org/docs/guide-for-use/guide_for_build.html
+https://alibaba.github.io/atlas/
 
 
 
