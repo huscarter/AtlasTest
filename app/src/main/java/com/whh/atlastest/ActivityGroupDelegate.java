@@ -35,15 +35,15 @@ public class ActivityGroupDelegate {
     private LocalActivityManager mLocalActivityManager;
     private FragmentActivity mActivity;
 
-    public LocalActivityManager getLocalActivityManager(){
+    public LocalActivityManager getLocalActivityManager() {
         return mLocalActivityManager;
     }
 
-    public ActivityGroupDelegate(FragmentActivity activity, Bundle bundle){
+    public ActivityGroupDelegate(FragmentActivity activity, Bundle bundle) {
         mActivity = activity;
         try {
             mLocalActivityManager = new LocalActivityManager(activity, true);
-        }catch(Throwable e){
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
 //        Bundle states = bundle != null
@@ -60,28 +60,28 @@ public class ActivityGroupDelegate {
 
             @Override
             public void onActivityResumed(Activity activity) {
-                if(mActivity == activity) {
+                if (mActivity == activity) {
                     mLocalActivityManager.dispatchResume();
                 }
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
-                if(mActivity == activity) {
+                if (mActivity == activity) {
                     mLocalActivityManager.dispatchPause(mActivity.isFinishing());
                 }
             }
 
             @Override
             public void onActivityStopped(Activity activity) {
-                if(mActivity == activity) {
+                if (mActivity == activity) {
                     mLocalActivityManager.dispatchStop();
                 }
             }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-                if(mActivity == activity) {
+                if (mActivity == activity) {
                     Bundle state = mLocalActivityManager.saveInstanceState();
                     if (state != null) {
                         bundle.putBundle(STATES_KEY, state);
@@ -91,7 +91,7 @@ public class ActivityGroupDelegate {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                if(mActivity == activity) {
+                if (mActivity == activity) {
                     mLocalActivityManager.removeAllActivities();
                 }
             }
@@ -132,30 +132,28 @@ public class ActivityGroupDelegate {
 //    }
 
 
-    public void startChildActivity(ViewGroup container, String key, Intent intent){
+    public void startChildActivity(ViewGroup container, String key, Intent intent) {
         //移除内容部分全部的View
         container.removeAllViews();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         Activity contentActivity = mLocalActivityManager.getActivity(key);
-        if(contentActivity!=null) {
-            container.addView(
-                    mLocalActivityManager.getActivity(key)
-                            .getWindow().getDecorView(),
+        if (contentActivity != null) {
+            container.addView(mLocalActivityManager.getActivity(key).getWindow().getDecorView(),
                     new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT));
             mLocalActivityManager.switchToChildActivity(key);
-        }else{
+        } else {
             execStartChildActivityInternal(container, key, intent);
         }
     }
 
-    private void performLaunchChildActivity(ViewGroup container,String key,Intent intent ){
-        if(intent==null){
-            Log.e("ActivityGroupDelegate","intent is null stop performLaunchChildActivity");
-            return ;
+    private void performLaunchChildActivity(ViewGroup container, String key, Intent intent) {
+        if (intent == null) {
+            Log.e("ActivityGroupDelegate", "intent is null stop performLaunchChildActivity");
+            return;
         }
-        mLocalActivityManager.startActivity(key,intent);
+        mLocalActivityManager.startActivity(key, intent);
         container.addView(
                 mLocalActivityManager.getActivity(key)
                         .getWindow().getDecorView(),
@@ -163,9 +161,9 @@ public class ActivityGroupDelegate {
                         ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
-    public void execStartChildActivityInternal(ViewGroup container,String key, Intent intent){
+    public void execStartChildActivityInternal(ViewGroup container, String key, Intent intent) {
         String packageName = null;
-        String componentName = null ;
+        String componentName = null;
         Context context = container.getContext();
         if (intent.getComponent() != null) {
             packageName = intent.getComponent().getPackageName();
@@ -177,59 +175,60 @@ public class ActivityGroupDelegate {
                 componentName = resolveInfo.activityInfo.name;
             }
         }
-        if (componentName == null){
-            Log.e("ActivityGroupDelegate","can not find componentName");
+        if (componentName == null) {
+            Log.e("ActivityGroupDelegate", "can not find componentName");
         }
         if (!StringUtils.equals(context.getPackageName(), packageName)) {
-            Log.e("ActivityGroupDelegate","childActivity can not be external Activity");
+            Log.e("ActivityGroupDelegate", "childActivity can not be external Activity");
         }
 
         String bundleName = AtlasBundleInfoManager.instance().getBundleForComponet(componentName);
-        if(!TextUtils.isEmpty(bundleName)){
+        if (!TextUtils.isEmpty(bundleName)) {
             BundleImpl impl = (BundleImpl) Atlas.getInstance().getBundle(bundleName);
-            if(impl!=null&&impl.checkValidate()) {
-                performLaunchChildActivity(container,key,intent);
-            }else {
-                if(ActivityTaskMgr.getInstance().peekTopActivity()!=null && Looper.getMainLooper().getThread().getId()==Thread.currentThread().getId()) {
-                    asyncStartActivity(container,key,bundleName,intent);
-                }else{
-                    performLaunchChildActivity(container,key,intent);
+            if (impl != null && impl.checkValidate()) {
+                performLaunchChildActivity(container, key, intent);
+            } else {
+                if (ActivityTaskMgr.getInstance().peekTopActivity() != null && Looper.getMainLooper().getThread().getId() == Thread.currentThread().getId()) {
+                    asyncStartActivity(container, key, bundleName, intent);
+                } else {
+                    performLaunchChildActivity(container, key, intent);
                 }
             }
-        }else{
+        } else {
             // Try to get class from system Classloader
             try {
                 Class<?> clazz = null;
                 clazz = Framework.getSystemClassLoader().loadClass(componentName);
                 if (clazz != null) {
-                    performLaunchChildActivity(container,key,intent);
+                    performLaunchChildActivity(container, key, intent);
                 }
             } catch (ClassNotFoundException e) {
-                Log.e("ActivityGroupDelegate","",e);
+                Log.e("ActivityGroupDelegate", "", e);
             }
         }
 
     }
 
-    private void asyncStartActivity(final ViewGroup container,final String key,final String bundleName,final Intent intent){
+    private void asyncStartActivity(final ViewGroup container, final String key, final String bundleName, final Intent intent) {
         final Activity current = ActivityTaskMgr.getInstance().peekTopActivity();
-        final Dialog dialog = current!=null ? RuntimeVariables.alertDialogUntilBundleProcessed(current,bundleName) : null;
-        if(current!=null && dialog==null){
+        final Dialog dialog = current != null ? RuntimeVariables.alertDialogUntilBundleProcessed(current, bundleName) : null;
+        if (current != null && dialog == null) {
             throw new RuntimeException("alertDialogUntilBundleProcessed can not return null");
         }
         final int currentActivitySize = ActivityTaskMgr.getInstance().sizeOfActivityStack();
         final BundleUtil.CancelableTask successTask = new BundleUtil.CancelableTask(new Runnable() {
             @Override
             public void run() {
-                if (current == ActivityTaskMgr.getInstance().peekTopActivity() || currentActivitySize==ActivityTaskMgr.getInstance().sizeOfActivityStack()+1) {
-                    performLaunchChildActivity(container,key,intent);
+                if (current == ActivityTaskMgr.getInstance().peekTopActivity() || currentActivitySize == ActivityTaskMgr.getInstance().sizeOfActivityStack() + 1) {
+                    performLaunchChildActivity(container, key, intent);
                 }
 
                 if (dialog != null && current != null && !current.isFinishing()) {
                     try {
-                        if(dialog.isShowing())
+                        if (dialog.isShowing())
                             dialog.dismiss();
-                    }catch (Throwable e){}
+                    } catch (Throwable e) {
+                    }
                 }
             }
         });
@@ -242,14 +241,15 @@ public class ActivityGroupDelegate {
 
                 if (dialog != null && current != null && !current.isFinishing()) {
                     try {
-                        if(dialog.isShowing())
+                        if (dialog.isShowing())
                             dialog.dismiss();
-                    }catch(Throwable e){}
+                    } catch (Throwable e) {
+                    }
                 }
             }
         });
 
-        if(dialog!=null) {
+        if (dialog != null) {
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
@@ -257,7 +257,7 @@ public class ActivityGroupDelegate {
                     failedTask.cancel();
                 }
             });
-            if(Atlas.getInstance().getBundle(bundleName)==null || Build.VERSION.SDK_INT<22) {
+            if (Atlas.getInstance().getBundle(bundleName) == null || Build.VERSION.SDK_INT < 22) {
                 if (dialog != null && current != null && !current.isFinishing() && !dialog.isShowing()) {
                     try {
                         dialog.show();

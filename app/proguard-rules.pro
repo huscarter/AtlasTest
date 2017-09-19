@@ -23,3 +23,31 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#-dontwarn com.taobao.**
+#-dontwarn org.apache.**
+#-dontwarn android.net.http.**
+#-dontwarn android.databinding.**
+#-dontwarn android.taobao.atlas.**
+#-dontwarn android.app.**
+#-dontwarn com.middleware.**
+#-dontwarn javax.annotation.**
+#-dontwarn java.lang.invoke.*
+-dontwarn **
+
+-keep class android.taobao.atlas.bridge.BridgeApplicationDelegate{*;}
+-keep class android.taobao.atlas.runtime.AtlasPreLauncher{*;}
+-keep class com.taobao.android.runtime.**{*;}
+-keepclassmembers class * implements android.taobao.atlas.runtime.AtlasPreLauncher {
+    public <fields>;
+    public <methods>;
+}
+
+-keep class * implements android.taobao.atlas.runtime.AtlasPreLauncher {
+ public <fields>;
+  public <methods>;
+}
+-keepclassmembers class android.taobao.atlas.**{
+    public <fields>;
+    public <methods>;
+}

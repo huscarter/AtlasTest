@@ -1,6 +1,5 @@
 // version define
 group = "com.whh"
-version = getEnvValue("versionName", "1.0.0")
 def apVersion = getEnvValue("apVersion", "");
 
 // plugin define
@@ -15,7 +14,7 @@ android {
         minSdkVersion MIN_SDK_VERSION
         targetSdkVersion TARGET_SDK_VERSION
         versionCode VERSION_CODE as int
-        versionName version
+        versionName VERSION_NAME
 
         /**
          * 可以使用library的资源文件
@@ -28,56 +27,31 @@ android {
     }
 
     //签名配置
-//    signingConfigs {
-//        debug {
-//            //
-//        }
-//
-//        release {
-//            storeFile file("shipindiy.keystore") //签名证书文件
-//            storePassword "shipindiy" //签名证书密码
-//            keyAlias "jushi" //别名
-//            keyPassword "shipindiy" //别名密码
-//        }
-//    }
-//
-//    buildTypes {
-//        debug {
-//            minifyEnabled false
-//            debuggable true //启用debug的buildType配置
-//            signingConfig signingConfigs.debug  //使用release证书签名
-//            zipAlignEnabled false
-//            shrinkResources false
-//
-//        }
-//
-//        release {
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release  //使用release证书签名
-//
-//            zipAlignEnabled true //开启Zipalign优化
-//            shrinkResources true //移除无用的resource文件，此项只有在开启混淆时才生效
-//
-//        }
-//
-//        // 多渠道打包配置
-//        applicationVariants.all { variant ->
-//            variant.outputs.each { output ->
-//                def output_file = output.outputFile
-//                def dir = output_file.parent
-//                if (output_file != null && output_file.name.endsWith('.apk')) {
-//                    def name
-//                    if (variant.buildType.name.equals('release')) {
-//                        name = "app_release.apk"
-//                    } else {
-//                        name = "app_debug.apk"
-//                    }
-//                    output.outputFile = new File(dir, name)
-//                }
-//            }
-//        }// end applicationVariants
-//    }
+    signingConfigs {
+        debug {
+            //
+        }
+
+        release {
+            storeFile file("test.keystore") //签名证书文件
+            storePassword "123456" //签名证书密码
+            keyAlias "test" //别名
+            keyPassword "123456" //别名密码
+        }
+    }
+
+    buildTypes {
+        debug {// debug model
+
+        }
+
+        release {// release model
+            shrinkResources false
+            // 是否进行混淆
+            minifyEnabled MINIFY_ENABLE as boolean
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 atlas {
@@ -90,11 +64,11 @@ atlas {
         /**
          * 输出成apk
          */
-        outOfApkBundles = ['remotebundle']
+//        outOfApkBundles = ['remotebundle']
         /**
          * 预执行方法className:methodName
          */
-        preLaunch = 'com.whh.atlastest.DemoPreLaunch'
+//        preLaunch = 'com.whh.atlastest.DemoPreLaunch'
     }
 
     manifestOptions {
@@ -104,6 +78,10 @@ atlas {
     patchConfigs {
         debug {
             createTPatch true
+        }
+
+        release {
+            createTPatch false
         }
     }
 
@@ -115,22 +93,22 @@ atlas {
             }
         }
 
-//        release {
-//            if (apVersion) {
-//                baseApDependency "$group:AP-debug:${apVersion}@ap"
-//                patchConfig patchConfigs.debug
-//            }
-//        }
+        release {
+            if (apVersion) {
+                baseApDependency "$group:AP-debug:${apVersion}@ap"
+                patchConfig patchConfigs.debug
+            }
+        }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-//    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
-//    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
 
     compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
     compile "com.android.support:design:$SUPPORT_VERSION"
@@ -141,7 +119,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.1.45.android@jar'
 
     // atlas
-    compile("com.taobao.android:atlas_core:5.0.7.30@aar"){
+    compile("com.taobao.android:atlas_core:5.0.7.30@aar") {
         transitive = true
     }
     compile "com.taobao.android:atlasupdate:1.1.4.10@aar"
@@ -150,8 +128,8 @@ dependencies {
     compile project(":middlewarelibrary")
 
     // bundle include
-    bundleCompile project(':firstbundle')
-    bundleCompile project(':remotebundle')
+    bundleCompile project(':firstbundle') // 此bundle直接被引用，在app里可以直接调用
+    bundleCompile project(':remotebundle') // 此bundle在atals的tBuildConfig里被配置成输出型apk，app需下载加载后使用
 }
 
 repositories {

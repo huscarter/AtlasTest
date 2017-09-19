@@ -1,5 +1,4 @@
 include ':app'
-include ':personmanager'
 include ':remotebundle'
 include ':middlewarelibrary'
 include ':firstbundle'

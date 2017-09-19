@@ -18,4 +18,10 @@
         android:orderInCategory="100"
         android:title="goto remote"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_person"
+        android:orderInCategory="100"
+        android:title="goto person manager"
+        app:showAsAction="never" />
 </menu>
