@@ -64,11 +64,11 @@ atlas {
         /**
          * 输出成apk
          */
-//        outOfApkBundles = ['remotebundle']
+        outOfApkBundles = ['remotebundle']
         /**
          * 预执行方法className:methodName
          */
-//        preLaunch = 'com.whh.atlastest.DemoPreLaunch'
+//        preLaunch = 'com.whh.atlastest.atlas.DemoPreLaunch'
     }
 
     manifestOptions {
@@ -110,7 +110,6 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
     compile "com.android.support:design:$SUPPORT_VERSION"
     compile "com.android.support:support-v4:$SUPPORT_VERSION"
     compile "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
@@ -126,9 +125,11 @@ dependencies {
 
     // include project
     compile project(":middlewarelibrary")
+    compile project(":commonlib")
 
     // bundle include
     bundleCompile project(':firstbundle') // 此bundle直接被引用，在app里可以直接调用
+    bundleCompile project(':secondbundle') // 此bundle直接被引用，在app里可以直接调用
     bundleCompile project(':remotebundle') // 此bundle在atals的tBuildConfig里被配置成输出型apk，app需下载加载后使用
 }
 

@@ -1,4 +1,4 @@
-package com.whh.atlastest;
+package com.whh.atlastest.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +9,15 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.whh.atlastest.R;
+import com.whh.atlastest.atlas.ActivityGroupDelegate;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private Toolbar toolbar;
     private ActivityGroupDelegate activity_delegate;
     private ViewGroup activity_container;
-
 
     @Override
     protected void onCreate(Bundle state) {
@@ -56,15 +58,15 @@ public class MainActivity extends AppCompatActivity {
 //                        startActivity(intent);
                         break;
                     case R.id.action_update:
-                        intent.setClassName(getBaseContext(), "com.whh.atlastest.UpdateActivity");
+                        intent.setClass(getBaseContext(), UpdateActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.action_remote:
                         intent.setClassName(getBaseContext(), "com.whh.remotebundle.RemoteBundleActivity");
                         startActivity(intent);
                         break;
-                    case R.id.action_person:
-                        intent.setClassName(getBaseContext(), "com.whh.personmanager.PersonCenterActivity");
+                    case R.id.action_second:
+                        intent.setClassName(getBaseContext(), "com.whh.secondbundle.SecondBundleActivity");
                         startActivity(intent);
                         break;
                     default:

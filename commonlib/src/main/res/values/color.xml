@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- 项目字体黑色 -->
+    <color name="text_black">#6c6c6c</color>
+    <!-- 项目字体灰色 -->
+    <color name="text_gray">#aaaaaa</color>
+    <color name="text_orange">#ff6e32</color>
+    <color name="hint_gray">#cccccc</color>
+    <!-- 字体蓝色 -->
+    <color name="text_blue">#3460a4</color>
+
+</resources>

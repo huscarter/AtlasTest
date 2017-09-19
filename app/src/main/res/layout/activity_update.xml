@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/include_title" />
+    <include
+        android:id="@+id/i_title"
+        layout="@layout/include_title" />
 
-    <TextView
-        android:id="@+id/tv_guide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="52dp"
-        android:text="请根据工程根目录下的Tpatch.txt执行动态部署的过程"
-        tools:layout_editor_absoluteX="0dp" />
+    <com.whh.commonlib.view.HorizontalView
+        android:id="@+id/hv_guide"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/i_title"
+        app:left_text="请根据工程根目录下的Tpatch.txt执行动态部署的过程" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.whh.atlastest;
+package com.whh.atlastest.atlas;
 
 import android.app.Activity;
 import android.app.Application;

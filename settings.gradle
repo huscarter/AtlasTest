@@ -1,4 +1,6 @@
 include ':app'
+include ':secondbundle'
+include ':commonlib'
 include ':remotebundle'
 include ':middlewarelibrary'
 include ':firstbundle'

@@ -20,8 +20,8 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_person"
+        android:id="@+id/action_second"
         android:orderInCategory="100"
-        android:title="goto person manager"
+        android:title="goto second"
         app:showAsAction="never" />
 </menu>

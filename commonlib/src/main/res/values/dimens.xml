@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- 注意:添加必须写明注释 -->
+
+
+    <!-- 文字小 -->
+    <dimen name="font_size_small_lib">13dp</dimen>
+    <!-- 文字中 -->
+    <dimen name="font_size_mid_lib">15dp</dimen>
+    <!-- 文字大 -->
+    <dimen name="font_size_big_lib">17dp</dimen>
+    <!-- 文字大大 -->
+    <dimen name="font_size_max_lib">20dp</dimen>
+    <dimen name="font_size_max_max_lib">32dp</dimen>
+
+    <dimen name="rating_height_max_lib">27.5dp</dimen>
+</resources>

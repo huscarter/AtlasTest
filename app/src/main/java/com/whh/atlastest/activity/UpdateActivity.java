@@ -1,4 +1,4 @@
-package com.whh.atlastest;
+package com.whh.atlastest.activity;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,12 +9,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
+import com.whh.atlastest.R;
+import com.whh.atlastest.atlas.Updater;
+import com.whh.commonlib.view.HorizontalView;
+
 import java.io.File;
-import java.util.List;
 
 
 public class UpdateActivity extends AppCompatActivity {
     private static final String TAG = UpdateActivity.class.getSimpleName();
+    private HorizontalView hv_guide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,8 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+        hv_guide = (HorizontalView) findViewById(R.id.hv_guide);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
